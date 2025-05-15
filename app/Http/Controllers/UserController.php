@@ -55,4 +55,12 @@ class UserController extends Controller
             'accounts' => $accounts,
         ]);
     }
+
+    // POST /api/logout
+    public function logout(Request $request)
+    {
+        // Révoque le token actuel
+        $request->user()->currentAccessToken()->delete();
+        return response()->json(['message' => 'Déconnexion réussie.']);
+    }
 }

@@ -24,3 +24,4 @@ Route::controller(TransactionController::class)->group(function () {
 
 // Profil utilisateur (protégé)
 Route::middleware('auth:sanctum')->get('/profile', [UserController::class, 'profile']);
+Route::middleware('auth:sanctum')->post('/logout', [UserController::class, 'logout']);
