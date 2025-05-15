@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
+    public const UPDATED_AT = null;
+
+    protected $fillable = [
+        'sender_id',
+        'receiver_id',
+        'amount',
+    ];
+
     /**
      * Compte expéditeur de la transaction.
      */

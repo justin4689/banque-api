@@ -10,6 +10,23 @@ use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
+    // GET /api/transactions
+    public function index()
+    {
+        $transactions = Transaction::with(['sender', 'receiver'])
+            ->orderByDesc('created_at')
+            ->get()
+            ->map(function ($t) {
+                return [
+                    'sender_account_number' => $t->sender->account_number,
+                    'receiver_account_number' => $t->receiver->account_number,
+                    'amount' => $t->amount,
+                    'created_at' => $t->created_at,
+                ];
+            });
+        return response()->json($transactions);
+    }
+
     // POST /api/transfer
     public function transfer(Request $request)
     {

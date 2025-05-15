@@ -15,12 +15,19 @@ Route::controller(UserController::class)->group(function () {
 });
 
 // Comptes & Transactions
+Route::get('/accounts/{accountNumber}/transactions', [TransactionController::class, 'history']);
+
 Route::controller(TransactionController::class)->group(function () {
-    Route::get('/accounts/{accountNumber}/transactions', 'history');
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/transfer', 'transfer');
     });
 });
+
+Route::controller(TransactionController::class)
+    ->middleware('auth:sanctum')
+    ->group(function () {
+        Route::get('/transactions', 'index'); // Liste toutes les transactions
+    });
 
 // Profil utilisateur (protégé)
 Route::middleware('auth:sanctum')->get('/profile', [UserController::class, 'profile']);
